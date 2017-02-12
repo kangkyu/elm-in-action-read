@@ -6,21 +6,31 @@ import Html.Attributes exposing (..)
 urlPrefix =
   "http://elm-in-action.com/"
 
-viewThumbnail thumbnail =
-  img [ src (urlPrefix ++ thumbnail.url) ] []
+viewThumbnail selectedUrl thumbnail =
+  if selectedUrl == thumbnail.url then
+    img
+      [ src (urlPrefix ++ thumbnail.url)
+      , class "selected"
+      ]
+      []
+  else
+    img [ src (urlPrefix ++ thumbnail.url) ] []
 
 view model =
   div [ class "content"]
     [ h1 [] [ text "Photo Groove"]
     , div [ id "thumbnails"]
-      (List.map viewThumbnail model)
+      (List.map (viewThumbnail model.selectedUrl) model.photos)
     ]
 
 initialModel =
-  [ { url = "1.jpeg"}
-  , { url = "2.jpeg"}
-  , { url = "3.jpeg"}
-  ]
+  { photos =
+    [ { url = "1.jpeg"}
+    , { url = "2.jpeg"}
+    , { url = "3.jpeg"}
+    ]
+  , selectedUrl = "1.jpeg" -- select the first photo by default
+  }
 
 main =
   view initialModel
