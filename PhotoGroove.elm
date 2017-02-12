@@ -1,4 +1,6 @@
-import Html exposing (div, h1, img, text)
+module PhotoGroove exposing (..)
+
+import Html exposing (..)
 import Html.Attributes exposing (..)
 
 view model =
