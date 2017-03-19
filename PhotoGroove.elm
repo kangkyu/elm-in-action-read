@@ -9,14 +9,11 @@ urlPrefix =
 
 
 viewThumbnail selectedUrl thumbnail =
-    if selectedUrl == thumbnail.url then
-        img
-            [ src (urlPrefix ++ thumbnail.url)
-            , class "selected"
-            ]
-            []
-    else
-        img [ src (urlPrefix ++ thumbnail.url) ] []
+    img
+        [ src (urlPrefix ++ thumbnail.url)
+        , classList [ ( "selected", selectedUrl == thumbnail.url ) ]
+        ]
+        []
 
 
 view model =
@@ -24,6 +21,11 @@ view model =
         [ h1 [] [ text "Photo Groove" ]
         , div [ id "thumbnails" ]
             (List.map (viewThumbnail model.selectedUrl) model.photos)
+        , img
+            [ class "large"
+            , src (urlPrefix ++ "large/" ++ model.selectedUrl)
+            ]
+            []
         ]
 
 
